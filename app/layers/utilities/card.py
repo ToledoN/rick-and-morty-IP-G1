@@ -17,7 +17,7 @@ class Card:
         if not isinstance(other, Card):
             return False
         return (self.url, self.name, self.status) == \
-               (other.url, other.name, other.status)
+            (other.url, other.name, other.status)
 
     # método hashCode.
     def __hash__(self):
