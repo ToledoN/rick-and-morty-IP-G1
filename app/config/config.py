@@ -6,6 +6,7 @@ VERSION = 'Trabajo práctico - 2do cuatrimestre del 2024.'
 # Rick & Morty REST API para capturar imágenes de la galería
 DEFAULT_PAGE = '1'
 DEFAULT_REST_API_URL = 'https://rickandmortyapi.com/api/character?page=' + DEFAULT_PAGE
+BASE_URL = "https://rickandmortyapi.com/api/character/"
 
 
 # Palabra buscada por defecto.

@@ -69,11 +69,15 @@
                                 <input type="hidden" name="status" value="{{ img.status }}">
                                 <input type="hidden" name="last_location" value="{{ img.location }}">
                                 <input type="hidden" name="first_seen" value="{{ img.first_episode }}"> 
-                                {% if img in favourite_list %}
+
+
+                                {% if img.name in favourite_list %}
+                                
                                     <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está en favoritos</button> 
                                 {% else %}
                                     <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> 
                                 {% endif %}
+
                             </form>
                         </div>
                         {% endif %}
