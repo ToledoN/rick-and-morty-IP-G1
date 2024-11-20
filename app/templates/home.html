@@ -1,8 +1,10 @@
-{% extends 'header.html' %} 
+{% extends 'header.html' %}
+{% load static %}
 {% block content %}
 <main>
-    <h1 class="text-center">Buscador Rick & Morty</h1>
-
+    <div class="text-center">
+        <img src="{% static 'img/rick-and-morty-logo.png' %}" alt="Buscador Rick & Morty" class="img-fluid logo-small">
+    </div>
     <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
         <!-- Selector de página -->
 <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
@@ -33,29 +35,23 @@
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
     </div>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-4 g-3">
         {% if images|length == 0 %}
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
         {% else %}
         {% for img in images %}
         <div class="col">
-            <div class="card mb-3 ms-5" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ img.image }}" class="card-img-top" alt="imagen">
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ img.name }}</h3>
-                            <p class="card-text">
-                                <strong>
-                                    {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
-                                    {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
-                                    {% else %} 🟠 {{ img.status }} 
-                                    {% endif %}
-                                </strong>
+            <div class="card h-100 d-flex flex-row p-2 align-items-center {% if img.status == 'Alive' %}borde-vivo{% elif img.status == 'Dead' %}borde-muerto{% else %}borde-desconocido{% endif %}">
+                <img src="{{ img.image }}" class="card-img-left" style="width: 100px; height: auto; border-radius: 8px; margin-right: 1rem;" alt="imagen">
+                <div class="card-body">
+                    <h5 class="card-title">{{ img.name }}</h5>
+                    <p class="card-text">
+                        <strong>
+                            {% if img.status == 'Alive' %} 🟢 {{ img.status }}
+                            {% elif img.status == 'Dead' %} 🔴 {{ img.status }}
+                            {% else %} 🟠 {{ img.status }}
+                            {% endif %}
+                        </strong>
                             </p>
                             <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.location }}</small></p>
                             <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_episode }}</small></p>
@@ -77,16 +73,16 @@
                                 {% else %}
                                     <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> 
                                 {% endif %}
-
                             </form>
                         </div>
                         {% endif %}
                     </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
         {% endif %}
     </div>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
 </main>
 {% endblock %}

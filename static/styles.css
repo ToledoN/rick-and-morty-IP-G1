@@ -1,7 +1,8 @@
 body {
-    color: #566787;
-    background: #f5f5f5;
+    background: url('https://wallpapercave.com/wp/wp3277757.jpg') no-repeat center center fixed;
+    background-size: cover;
     font-family: 'Roboto', sans-serif;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .table-responsive {
@@ -10,20 +11,23 @@ body {
 
 .table-wrapper {
     min-width: 1000px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-radius: 10px;
 }
 
 .table-title {
     padding-bottom: 10px;
     margin: 0 0 10px;
     min-width: 100%;
+    color: #00E5FF;
 }
 
 .table-title h2 {
     margin: 8px 0 0;
     font-size: 22px;
+    font-family: 'Comic Sans MS', sans-serif;
 }
 
 .search-box {
@@ -40,7 +44,7 @@ body {
 }
 
 .search-box input:focus {
-    border-color: #3FBAE4;
+    border-color: #00E5FF;
 }
 
 .search-box i {
@@ -57,11 +61,11 @@ table.table tr td {
 }
 
 table.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fcfcfc;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 table.table-striped.table-hover tbody tr:hover {
-    background: #f5f5f5;
+    background: #2e2e2e;
 }
 
 table.table th i {
@@ -132,11 +136,46 @@ table.table td i {
 
 .pagination li i {
     font-size: 16px;
-    padding-top: 6px
+    padding-top: 6px;
 }
 
 .hint-text {
     float: left;
     margin-top: 6px;
     font-size: 95%;
+}
+
+.borde-vivo {
+    border: 4px solid #00FF00;
+}
+
+.borde-muerto {
+    border: 4px solid #FF0000;
+}
+
+.borde-desconocido {
+    border: 4px solid #FFA500;
+}
+.logo-small {
+    max-width: 50%;
+    height: auto;
+}
+
+@font-face {
+    font-family: 'RickAndMortyFont';
+    src: url('fonts/get_schwifty.ttf') format('truetype');
+}
+
+.texto-bienvenida {
+    font-size: 6em;
+    color: #A4FF00;
+    text-shadow: 
+        2px 2px 0px #FFD700, 
+        4px 4px 0px #005C00;
+    font-weight: bold;
+    font-family: 'RickAndMortyFont', sans-serif; 
+}
+
+.imagen-bienvenida {
+    width: 500px;
 }
