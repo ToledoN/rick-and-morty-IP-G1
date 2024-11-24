@@ -5,7 +5,7 @@ from ...config import config
 from ..utilities import translator
 # comunicación con la REST API.
 # este método se encarga de "pegarle" a la API y traer una lista de objetos JSON crudos (raw).
-def getAllImages(input=None, page=config.DEFAULT_PAGE):
+def getAllImages(input, page):
     
     url = config.BASE_URL
     params = {'page': page}
@@ -21,14 +21,16 @@ def getAllImages(input=None, page=config.DEFAULT_PAGE):
     except requests.exceptions.RequestException as e:
         print(f"Error al hacer la solicitud: {e}")
         return [], 1
+
     images = []
     
     for object in characters:
         try:
             if 'image' in object:
-                images.append(translator.fromRequestIntoCard(object))
+                images.append(object)
             else:
                 print("[transport.py]: se encontró un objeto sin clave 'image', omitiendo...")
         except KeyError: 
             pass
+
     return images, total_pages

@@ -4,27 +4,53 @@ from ..persistence import repositories
 from ..utilities import translator
 from ..transport import transport
 from django.contrib.auth import get_user
-import requests
-from ..utilities import card
+from ...config import config
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
 
 
-def getAllImages(input=None, page=1):
+def getAllImages(input=None, page=config.DEFAULT_PAGE):
     
-    images, total_pages = transport.getAllImages(input, page)
-    images = [
-    {
-        'image': img.url,
-        'name': img.name,
-        'status': img.status,
-        'location': img.last_location,
-        'first_episode': img.first_seen,
+    if page < 1:
+        page = config.DEFAULT_PAGE
+        
+    if input is not None:
+        input = input.strip()
+        
+    try:
+        characters, total_pages = transport.getAllImages(input, page)
+        imageCards = []
+        
+        for character in characters:
+            try:
+                characterCard = translator.fromRequestIntoCard(character)
+                imageCards.append(characterCard)
+            except KeyError as e:
+                print(f"[services.py]: Error al procesar datos del personaje: {e}")
+                continue
+            
+        return imageCards, total_pages
+    
+    except Exception as e:
+            print(f"[services.py]: Error al obtener datos de la API: {e}")
+            return [], 0
+
+def get_home_context(request, input_name, current_page):
+    images, total_pages = getAllImages(input_name, current_page)
+    page_range = range(1, min(total_pages, 10) + 1)
+    
+    favourite_list = getFavs(request)
+    favourite_names = [fav['name'] for fav in favourite_list]
+    
+    return {
+        'images': images,
+        'favourite_list': favourite_names,
+        'current_page': current_page,
+        'total_pages': total_pages,
+        'page_range': page_range,
+        'name': input_name,
     }
-    for img in images
-    ]
-    return list(images), total_pages
 
 def saveFavourite(request):
     fav = translator.fromTemplateIntoCard(request)

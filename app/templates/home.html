@@ -1,88 +1,152 @@
-{% extends 'header.html' %}
-{% load static %}
-{% block content %}
+{% extends 'header.html' %} {% load static %} {% block content %}
 <main>
     <div class="text-center">
-        <img src="{% static 'img/rick-and-morty-logo.png' %}" alt="Buscador Rick & Morty" class="img-fluid logo-small">
+        <img
+            src="{% static 'img/rick-and-morty-logo.png' %}"
+            alt="Buscador Rick & Morty"
+            class="img-fluid logo-small" />
     </div>
-    <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
+    <div
+        class="d-flex justify-content-end"
+        style="margin-bottom: 1%; margin-right: 2rem">
         <!-- Selector de página -->
-<div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
-    <nav aria-label="...">
-        <ul class="pagination">
-            <!-- Botón de página anterior -->
-            <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-                <a class="page-link" href="?name={{ name }}&page={{ current_page|add:-1 }}">⬅️</a>
-            </li>
+        <div
+            class="d-flex justify-content-end"
+            style="margin-bottom: 1%; margin-right: 2rem">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <!-- Botón de página anterior -->
+                    <li
+                        class="page-item {% if current_page == 1 %}disabled{% endif %}">
+                        <a
+                            class="page-link"
+                            href="?name={{ name }}&page={{ current_page|add:-1 }}">
+                            ⬅️
+                        </a>
+                    </li>
 
-            <!-- Números de página -->
-            {% for page_num in page_range %}
-                <li class="page-item {% if page_num == current_page %}active{% endif %}">
-                    <a class="page-link" href="?name={{ name }}&page={{ page_num }}">{{ page_num }}</a>
-                </li>
-            {% endfor %}
+                    <!-- Números de página -->
+                    {% for page_num in page_range %}
+                    <li
+                        class="page-item {% if page_num == current_page %}active{% endif %}">
+                        <a
+                            class="page-link"
+                            href="?name={{ name }}&page={{ page_num }}">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                    {% endfor %}
 
-            <!-- Botón de página siguiente -->
-            <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
-                <a class="page-link" href="?name={{ name }}&page={{ current_page|add:1 }}">➡️</a>
-            </li>
-        </ul>
-    </nav>
-</div>
+                    <!-- Botón de página siguiente -->
+                    <li
+                        class="page-item {% if current_page == total_pages %}disabled{% endif %}">
+                        <a
+                            class="page-link"
+                            href="?name={{ name }}&page={{ current_page|add:1 }}">
+                            ➡️
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'home' %}" method="GET">
-            <input class="form-control me-2" type="search" name="name" placeholder="Escribí una palabra" aria-label="Search" value="{{ name }}">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input
+                class="form-control me-2"
+                type="search"
+                name="name"
+                placeholder="Escribí una palabra"
+                aria-label="Search"
+                value="{{ name }}" />
+            <button class="btn btn-success" type="submit">Buscar</button>
         </form>
     </div>
-    <div class="row row-cols-1 row-cols-md-4 g-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-3">
         {% if images|length == 0 %}
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
-        {% else %}
-        {% for img in images %}
+        {% else %} {% for img in images %}
         <div class="col">
-            <div class="card h-100 d-flex flex-row p-2 align-items-center {% if img.status == 'Alive' %}borde-vivo{% elif img.status == 'Dead' %}borde-muerto{% else %}borde-desconocido{% endif %}">
-                <img src="{{ img.image }}" class="card-img-left" style="width: 100px; height: auto; border-radius: 8px; margin-right: 1rem;" alt="imagen">
+            <div
+                class="card h-100 d-flex flex-row p-2 align-items-center {% if img.status == 'Alive' %}borde-vivo{% elif img.status == 'Dead' %}borde-muerto{% else %}borde-desconocido{% endif %}">
+                <img
+                    src="{{ img.url }}"
+                    class="card-img-left"
+                    style="
+                        width: 100px;
+                        height: auto;
+                        border-radius: 8px;
+                        margin-right: 1rem;
+                    "
+                    alt="imagen" />
                 <div class="card-body">
                     <h5 class="card-title">{{ img.name }}</h5>
                     <p class="card-text">
                         <strong>
                             {% if img.status == 'Alive' %} 🟢 {{ img.status }}
                             {% elif img.status == 'Dead' %} 🔴 {{ img.status }}
-                            {% else %} 🟠 {{ img.status }}
-                            {% endif %}
+                            {% else %} 🟠 {{ img.status }} {% endif %}
                         </strong>
-                            </p>
-                            <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.location }}</small></p>
-                            <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_episode }}</small></p>
-                        </div>
-                        {% if request.user.is_authenticated %}
-                        <div class="card-footer text-center">
-                            <form method="post" action="{% url 'agregar-favorito' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="name" value="{{ img.name }}">
-                                <input type="hidden" name="url" value="{{ img.image }}">
-                                <input type="hidden" name="status" value="{{ img.status }}">
-                                <input type="hidden" name="last_location" value="{{ img.location }}">
-                                <input type="hidden" name="first_seen" value="{{ img.first_episode }}"> 
-
-
-                                {% if img.name in favourite_list %}
-                                
-                                    <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está en favoritos</button> 
-                                {% else %}
-                                    <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> 
-                                {% endif %}
-                            </form>
-                        </div>
-                        {% endif %}
-                    </div>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-body-secondary">
+                            Última ubicación: {{ img.last_location }}
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-body-secondary">
+                            Episodio inicial: {{ img.first_seen }}
+                        </small>
+                    </p>
                 </div>
-            {% endfor %}
-        {% endif %}
+                {% if request.user.is_authenticated %}
+                <div class="card-footer text-center">
+                    <form method="post" action="{% url 'agregar-favorito' %}">
+                        {% csrf_token %}
+                        <input
+                            type="hidden"
+                            name="name"
+                            value="{{ img.name }}" />
+                        <input type="hidden" name="url" value="{{ img.url }}" />
+                        <input
+                            type="hidden"
+                            name="status"
+                            value="{{ img.status }}" />
+                        <input
+                            type="hidden"
+                            name="last_location"
+                            value="{{ img.last_location }}" />
+                        <input
+                            type="hidden"
+                            name="first_seen"
+                            value="{{ img.first_seen }}" />
+
+                        {% if img.name in favourite_list %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-sm float-left"
+                            style="color: white"
+                            disabled>
+                            ❤️ ✔️
+                        </button>
+                        {% else %}
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-sm float-left"
+                            style="color: white">
+                            ❤️ ➕
+                        </button>
+                        {% endif %}
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %} {% endif %}
     </div>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
 
+    <div id="clear"></div>
 </main>
 {% endblock %}

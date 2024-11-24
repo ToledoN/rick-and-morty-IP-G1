@@ -1,54 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rick & Morty App - IP 2C2024</title>
+        <!-- prettier-ignore -->
+        {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'styles.css' %}" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet" />
+        <link
+            rel="icon"
+            href="{% static 'img/favicon.ico' %}"
+            type="image/x-icon" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rick & Morty App - IP 2C2024</title>
-    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
-    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Proyecto TP</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index-page' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><strong>Galería</strong></a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'favoritos' %}">Favoritos</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
+    <body>
+        <nav id="navbar" class="navbar navbar-expand-lg shadow bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Proyecto TP</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="#000000"
+                            stroke="#000000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-menu-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 6l16 0" />
+                            <path d="M4 12l16 0" />
+                            <path d="M4 18l16 0" />
+                        </svg>
+                    </span>
+                </button>
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="{% url 'index-page' %}">
+                                Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="{% url 'home' %}">
+                                <strong>Galería</strong>
+                            </a>
+                        </li>
                         {% if request.user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'exit' %}">Salir</a> {% else %}
-                        <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>{% endif %}
-                    </li>
-                    <li class="nav-item">
-                        {% if not request.user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'register' %}">Registrarse</a>{% endif %}
-                    </li>
-                </ul>
-
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'favoritos' %}">
+                                Favoritos
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            {% if request.user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'exit' %}">
+                                Salir
+                            </a>
+                            {% else %}
+                            <a class="nav-link" href="{% url 'login' %}">
+                                Iniciar sesión
+                            </a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            {% if not request.user.is_authenticated %}
+                            <a class="nav-link" href="{% url 'register' %}">
+                                Registrarse
+                            </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    {% block content %} {% endblock %} 
-    {% include "footer.html" %}
-</body>
-
+        {% block content %} {% endblock %} {% include "footer.html" %}
+    </body>
 </html>

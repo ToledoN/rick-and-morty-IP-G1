@@ -1,7 +1,8 @@
 body {
-    background: url('https://wallpapercave.com/wp/wp3277757.jpg') no-repeat center center fixed;
+    background: url("https://wallpapercave.com/wp/wp3277757.jpg") no-repeat
+        center center fixed;
     background-size: cover;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -13,7 +14,7 @@ body {
     min-width: 1000px;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
 }
 
@@ -21,13 +22,13 @@ body {
     padding-bottom: 10px;
     margin: 0 0 10px;
     min-width: 100%;
-    color: #00E5FF;
+    color: #00e5ff;
 }
 
 .table-title h2 {
     margin: 8px 0 0;
     font-size: 22px;
-    font-family: 'Comic Sans MS', sans-serif;
+    font-family: "Verdana", sans-serif;
 }
 
 .search-box {
@@ -44,7 +45,7 @@ body {
 }
 
 .search-box input:focus {
-    border-color: #00E5FF;
+    border-color: #00e5ff;
 }
 
 .search-box i {
@@ -85,15 +86,15 @@ table.table td a {
 }
 
 table.table td a.view {
-    color: #03A9F4;
+    color: #03a9f4;
 }
 
 table.table td a.edit {
-    color: #FFC107;
+    color: #ffc107;
 }
 
 table.table td a.delete {
-    color: #E34724;
+    color: #e34724;
 }
 
 table.table td i {
@@ -123,7 +124,7 @@ table.table td i {
 }
 
 .pagination li.active a {
-    background: #03A9F4;
+    background: #03a9f4;
 }
 
 .pagination li.active a:hover {
@@ -146,15 +147,15 @@ table.table td i {
 }
 
 .borde-vivo {
-    border: 4px solid #00FF00;
+    border: 4px solid #00ff00;
 }
 
 .borde-muerto {
-    border: 4px solid #FF0000;
+    border: 4px solid #ff0000;
 }
 
 .borde-desconocido {
-    border: 4px solid #FFA500;
+    border: 4px solid #ffa500;
 }
 .logo-small {
     max-width: 50%;
@@ -162,20 +163,22 @@ table.table td i {
 }
 
 @font-face {
-    font-family: 'RickAndMortyFont';
-    src: url('fonts/get_schwifty.ttf') format('truetype');
+    font-family: "RickAndMortyFont";
+    src: url("fonts/get_schwifty.ttf") format("truetype");
 }
 
 .texto-bienvenida {
     font-size: 6em;
-    color: #A4FF00;
-    text-shadow: 
-        2px 2px 0px #FFD700, 
-        4px 4px 0px #005C00;
+    color: #a4ff00;
+    text-shadow: 2px 2px 0px #ffd700, 4px 4px 0px #005c00;
     font-weight: bold;
-    font-family: 'RickAndMortyFont', sans-serif; 
+    font-family: "RickAndMortyFont", sans-serif;
 }
 
 .imagen-bienvenida {
     width: 500px;
+}
+
+#navbar {
+    background-color: rgba(255, 255, 255, 0.8);
 }

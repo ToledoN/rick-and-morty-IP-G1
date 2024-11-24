@@ -1,12 +1,9 @@
 # capa de vista/presentación
 
 from django.shortcuts import redirect, render
-from .layers.services.services import getAllImages
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.core.mail import send_mail
-from django.contrib.auth.models import User
-from django.contrib import messages
 from .layers.services import services
 
 
@@ -17,21 +14,12 @@ def home(request):
     input_name = request.GET.get('name', '')
     current_page = int(request.GET.get('page', 1))
     
-    images, total_pages = getAllImages(input_name, current_page)
-    page_range = range(1, min(total_pages, 10) + 1)
-
-    favourite_list = services.getFavs(request)
-    favourite_names = [fav['name'] for fav in favourite_list]
-    
-    context = {
-        'images': images,
-        'favourite_list': favourite_names,
-        'current_page': current_page,
-        'total_pages': total_pages,
-        'page_range': page_range,
-        'name': input_name,
-    }
-    return render(request, 'home.html', context)
+    try:
+        context = services.get_home_context(request, input_name, current_page)
+        return render(request, 'home.html', context)
+    except Exception as e:
+        messages.error(request, f"Error cargando datos de la página: {e}")
+        return redirect('index')
 
 def register_view(request):
     services.register(request)

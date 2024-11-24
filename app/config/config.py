@@ -1,7 +1,7 @@
 # archivo de configuración del sistema.
 
 # versión del TP.
-VERSION = 'Trabajo práctico - 2do cuatrimestre del 2024.'
+VERSION = 'Trabajo práctico - 2° C. 2024 - Grupo 1'
 
 # Rick & Morty REST API para capturar imágenes de la galería
 DEFAULT_PAGE = '1'
