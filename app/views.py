@@ -26,14 +26,6 @@ def register_view(request):
     
     return render(request, 'registration/register.html')
 
-def search(request):
-    search_msg = request.POST.get('query', '')
-
-    if search_msg != '':
-        return redirect('home')
-    else:
-        return redirect('home')
-
 @login_required
 def getAllFavouritesByUser(request):
     favourite_list = services.getAllFavourites(request)
