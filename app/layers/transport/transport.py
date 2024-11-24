@@ -2,7 +2,7 @@
 
 import requests
 from ...config import config
-from ..utilities import translator
+
 # comunicación con la REST API.
 # este método se encarga de "pegarle" a la API y traer una lista de objetos JSON crudos (raw).
 def getAllImages(input, page):
