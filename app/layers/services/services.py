@@ -40,8 +40,8 @@ def get_home_context(request, input_name, current_page):
     images, total_pages = getAllImages(input_name, current_page)
     page_range = range(1, min(total_pages, 10) + 1)
     
-    favourite_list = getFavs(request)
-    favourite_names = [fav['name'] for fav in favourite_list]
+    favourite_list = getAllFavourites(request)
+    favourite_names = [fav.name for fav in favourite_list]
     
     return {
         'images': images,
@@ -70,15 +70,6 @@ def getAllFavourites(request):
             card = translator.fromRepositoryIntoCard(favourite)
             mapped_favourites.append(card)
         return mapped_favourites
-
-def getFavs(request):
-    if not request.user.is_authenticated:
-        return []
-    else:
-        user = get_user(request)
-
-        favourite_list = repositories.getAllFavourites(user)
-        return favourite_list
 
 def deleteFavourite(request):
     favId = request.POST.get('id')
