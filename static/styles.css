@@ -168,15 +168,15 @@ table.table td i {
 }
 
 .texto-bienvenida {
-    font-size: 6em;
+    font-size: 3em;
     color: #a4ff00;
-    text-shadow: 2px 2px 0px #ffd700, 4px 4px 0px #005c00;
+    text-shadow: 2px 2px 0px #ffd700, 4px 4px 0px #005c00, 6px 6px 4px #000000;
     font-weight: bold;
     font-family: "RickAndMortyFont", sans-serif;
 }
 
 .imagen-bienvenida {
-    width: 500px;
+    width: 300px;
 }
 
 #navbar {

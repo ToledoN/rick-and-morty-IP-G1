@@ -1,15 +1,16 @@
-{% extends 'header.html' %}
-{% load static %}
-{% block content %}
-    <div class="text-center">
-        <h2 class="texto-bienvenida">¡BIENVENIDO!</h2>
-        <img src="{% static 'img/rick-and-morty-bienvenida.png' %}" alt="Logo Rick & Morty" class="img-fluid imagen-bienvenida my-3">
-        
-        {% if request.user.is_authenticated %}
-            <h3 class="texto-bienvenida">{{ user.username | upper }}</h3>
-        {% endif %}
-        <p>
-            Mirá las imágenes desde <a href="{% url 'home' %}">este link.</a>
-        </p>
-    </div>
+{% extends 'header.html' %} {% load static %} {% block content %}
+<div class="text-center mt-3">
+    <h2 class="texto-bienvenida">¡BIENVENIDO!</h2>
+    <img
+        src="{% static 'img/rick-and-morty-bienvenida.png' %}"
+        alt="Logo Rick & Morty"
+        class="img-fluid imagen-bienvenida mt-3" />
+
+    {% if request.user.is_authenticated %}
+    <h3 class="texto-bienvenida">{{ user.username | upper }}</h3>
+    {% endif %}
+    <a href="{% url 'home' %}">
+        <button class="btn btn-success mt-3">Pasar a galería</button>
+    </a>
+</div>
 {% endblock %}

@@ -23,7 +23,6 @@ def home(request):
 
 def register_view(request):
     services.register(request)
-    
     return render(request, 'registration/register.html')
 
 @login_required
